@@ -3,6 +3,7 @@ var myObstacles = [];
 var myScore;
 
 function startGame() {
+    
     // Quadrado vermelho
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.5;
@@ -75,9 +76,9 @@ function component(width, height, color, x, y, type) {
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
         }
-        return crash;
 
         // Aqui congela o jogo
+        return crash;
     }
 }
 
@@ -118,7 +119,7 @@ function everyinterval(n) {
 
 function accelerate(n) {
     if (!myGameArea.interval)
-        myGameArea.interval = setInterval(updateGameArea, 10); //Velocidade do jogo
+        myGameArea.interval = setInterval(updateGameArea, 15); //Velocidade do jogo
 
     myGamePiece.gravity = n;
 }
