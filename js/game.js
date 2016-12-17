@@ -7,6 +7,7 @@ var mySound;
 var myMusic;
 var paused = false;
 var difficulty = 15;
+var muteAudio;
 
 function start(level) {
     handleLevel(level);
@@ -64,7 +65,7 @@ function component(width, height, color, x, y, type) {
     if (type == "image") {
         this.image = new Image();
         this.image.src = color;
-  }
+    }
     this.score = 0;
     this.width = width;
     this.height = height;
@@ -127,7 +128,7 @@ function component(width, height, color, x, y, type) {
         var otherright  = otherobj.x + (otherobj.width);
         var othertop    = otherobj.y;
         var otherbottom = otherobj.y + (otherobj.height);
-        var crash = true;
+        var crash       = true;
         
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
@@ -173,6 +174,7 @@ function updateGameArea() {
     myScore.update();
     myGamePiece.newPos();
     myGamePiece.update();
+    muteAudio.update();
 }
 
 function everyinterval(n) {
@@ -227,7 +229,9 @@ function createGameComponents(){
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.5;
     // create score component
-    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
+    myScore     = new component("30px", "Consolas", "white", 280, 40, "text");
+    //mute audio
+    muteAudio   = new component(30, 30, "img/audio.png", screenWidth - 30, 0,"image");
 }
 
 function createGameSounds(){
@@ -238,6 +242,6 @@ function createGameSounds(){
 }
 
 function generateRandomPillar(){
-    var txt = "img/pillar" + Math.floor((Math.random() * 5) + 1) + ".png";
-    return txt;
+    var pillarName = "img/pillar" + Math.floor((Math.random() * 5) + 1) + ".png";
+    return pillarName;
 }

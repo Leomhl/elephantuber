@@ -36,8 +36,7 @@ var restartBtn = document.getElementById('restartBtn');
 	  start(2);
 	});
 
-// Hanking
-
+// Ranking
 	rankingBtn.addEventListener("click", function(){
 	  alert('pendente de implementação');
 	});
