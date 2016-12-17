@@ -1,8 +1,8 @@
  var myGamePiece;
 var myObstacles = [];
 var myScore;
-var screenWidth = 800;
-var screenHeight = 600;
+var screenWidth = screen.width - (screen.width*0.2);
+var screenHeight = screen.height - (screen.height*0.2);
 var mySound;
 var myMusic;
 var paused = false;
