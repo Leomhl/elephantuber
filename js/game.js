@@ -22,7 +22,7 @@ function startGame() {
     myGamePiece.gravity = 0.5;
 
     // create score component
-    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
 
     myGameArea.start();
 }
