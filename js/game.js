@@ -5,6 +5,7 @@ var screenWidth = 800;
 var screenHeight = 600;
 var mySound;
 var myMusic;
+var paused = false;
 
 function start() {
     hideStartScreen();
@@ -111,6 +112,8 @@ function component(width, height, color, x, y, type) {
 
 function updateGameArea() {
 
+    if(this.paused) return;
+
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
 
     for (i = 0; i < myObstacles.length; i += 1) {
@@ -152,7 +155,7 @@ function everyinterval(n) {
 
 function accelerate(n) {
     if (!myGameArea.interval)
-        myGameArea.interval = setInterval(updateGameArea, 15); //Velocidade do jogo
+        myGameArea.interval = setInterval(updateGameArea, 15); //Game speed
 
       myGamePiece.gravity = n;
 }
@@ -163,6 +166,18 @@ function onLose(){
     myGameArea.stop();
     showRestartButton();
     return;
+}
+
+function pause(){
+    paused = !paused;
+    if(paused)
+    {
+        myMusic.stop();
+    }
+    else
+    {
+        myMusic.play();
+    }
 }
 
 function showRestartButton(){
