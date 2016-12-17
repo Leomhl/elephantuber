@@ -2,6 +2,17 @@ var myGamePiece;
 var myObstacles = [];
 var myScore;
 
+function start() {
+    document.getElementById('startBtn').style.display = "none";
+    document.getElementById('logo').style.display = "none";
+    document.getElementById('instructionsBtn').style.display = "none";
+    startGame();
+}
+
+function instructions() {
+    alert('Pendente de implementação')
+}
+
 function startGame() {
     
     // Quadrado vermelho
@@ -9,7 +20,7 @@ function startGame() {
     myGamePiece.gravity = 0.5;
 
     // Placar
-    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myScore = new component("30px", "Courier New Regular", "white", 280, 40, "text");
     myGameArea.start();
 }
 

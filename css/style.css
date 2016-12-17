@@ -1,5 +1,42 @@
 canvas {
-    background-image: url("../img/bg.png");
+    background-image: url("../img/bg.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+
+#startBtn {
+    border: 1px;
+    border-color:white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    position:absolute;
+    top:50%;
+    left:40%;
+    font-size: 16px;
+    width: 20%;
+}
+
+#instructionsBtn {
+    border: 1px;
+    border-color:white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    position:absolute;
+    top:60%;
+    left:40%;
+    font-size: 16px;
+    width: 20%;
+}
+
+#preInstructions {
+	top:57%;
+    left:40%;
+    font-size: 18px;
+    color: white;
+    position:absolute;
+    font-family: 'Courier New Regular';
 }
