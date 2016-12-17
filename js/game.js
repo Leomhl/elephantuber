@@ -6,10 +6,31 @@ var screenHeight = 600;
 var mySound;
 var myMusic;
 var paused = false;
+var difficulty = 15;
 
-function start() {
+function start(level) {
+    handleLevel(level);
     hideStartScreen();
     startGame();
+}
+
+function handleLevel(level)
+{
+    if(level == 0)
+    {
+        difficulty = 20;
+        return;
+    }
+    if(level == 1)
+    {
+        difficulty = 15;
+        return;
+    }
+    if(level == 2)
+    {
+        difficulty = 10;
+        return;
+    }
 }
 
 function instructions() {
@@ -155,7 +176,7 @@ function everyinterval(n) {
 
 function accelerate(n) {
     if (!myGameArea.interval)
-        myGameArea.interval = setInterval(updateGameArea, 15); //Game speed
+        myGameArea.interval = setInterval(updateGameArea, difficulty); //Game speed
 
       myGamePiece.gravity = n;
 }
@@ -193,6 +214,7 @@ function hideStartScreen(){
     document.getElementById('logo').style.display = "none";
     document.getElementById('instructionsBtn').style.display = "none";
     document.getElementById('restartBtn').style.display = "none";
+    document.getElementById('levelChoose').style.display = "none";
 }
 
 function createGameComponents(){

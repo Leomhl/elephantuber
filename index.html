@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <title>ElephantUber Game</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#startBtn").click(function(){
+        $("#levelChoose").show();
+    });
+  });
+  </script>
   <body>
     <img src="img/logo.png" id="logo">
-    <button id="startBtn" onclick="start()">Iniciar Jogo</button>
+    <button id="startBtn">Iniciar Jogo</button>
     <button id="instructionsBtn" onclick="instructions()">Instruções</button>
     <a class="button" id="restartBtn" onclick="restart()">Restart!</a>
-    <!-- <span id="preInstructions">Utilize a tecla de espaço para jogar!</span> -->
-
+    
+    <div id="levelChoose">
+      <button id="easyBtn"    onclick="start(0)">Easy</button>
+      <button id="normalBtn"  onclick="start(1)">Normal</button>
+      <button id="hardBtn"    onclick="start(2)">Hard</button>
+    </div>
   </body>
 
   <script type="text/javascript" src="js/game.js"></script>
