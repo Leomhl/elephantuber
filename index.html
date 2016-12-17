@@ -7,13 +7,21 @@
   </head>
 
   <body>
-    <img src="img/logo.png" id="logo">
-    <button id="startBtn" onclick="start()">Iniciar Jogo</button>
-    <button id="instructionsBtn" onclick="instructions()">Instruções</button>
-    <a class="button" id="restartBtn" onclick="restart()">Restart!</a>
+    <img src="img/logo.png" class="hideStartScreen" id="logo">
+    <button class="hideStartScreen" id="startBtn">Iniciar Jogo</button>
+    <button class="hideStartScreen" id="instructionsBtn">Instruções</button>
+    <button class="hideStartScreen" id="rankingBtn">Ranking</button>
+    <a class="button hideStartScreen" id="restartBtn">Restart!</a>
+    
+    <div id="levelChoose" class="hideStartScreen">
+      <button id="easyBtn">Fácil</button>
+      <button id="normalBtn">Normal</button>
+      <button id="hardBtn">Difícil</button>
+    </div>
   </body>
 
   <script type="text/javascript" src="js/game.js"></script>
   <script type="text/javascript" src="js/controls.js"></script>
+  <script type="text/javascript" src="js/events.js"></script>
   <script type="text/javascript" src="js/sounds.js"></script>
 </html>
