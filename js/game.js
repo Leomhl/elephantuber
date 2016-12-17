@@ -27,7 +27,7 @@ function startGame() {
     myScore = new component("30px", "Consolas", "white", 280, 40, "text");
     
     // create sound objects
-    mySound = new sound("sounds/elephant.mp3"   );
+    mySound = new sound("sounds/elephant.mp3");
     myMusic = new sound("sounds/music.mp3", true);
 
 
