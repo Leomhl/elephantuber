@@ -1,4 +1,4 @@
- var myGamePiece;
+var myGamePiece;
 var myObstacles = [];
 var myScore;
 var screenWidth = screen.width - (screen.width*0.2);
@@ -20,7 +20,6 @@ function startGame() {
     
     createGameComponents();
     createGameSounds();
-
     myGameArea.start();
 }
 
@@ -109,7 +108,6 @@ function component(width, height, color, x, y, type) {
 
         return crash;
     }
-
 }
 
 function updateGameArea() {

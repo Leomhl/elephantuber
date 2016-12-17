@@ -16,7 +16,3 @@ function sound(src, repeat) {
         this.sound.pause();
     }
 }
-
-function repeatSound(obj) {
-    
-}

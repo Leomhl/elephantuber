@@ -1,5 +1,3 @@
-
-
 document.onkeypress = function(e) {
 	//space bar
     if(e.keyCode == 32)
