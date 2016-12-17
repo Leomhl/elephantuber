@@ -7,6 +7,7 @@ var mySound;
 var myMusic;
 var paused = false;
 var difficulty = 15;
+var muteAudio;
 
 function start(level) {
     handleLevel(level);
@@ -59,84 +60,6 @@ var myGameArea = {
     }
 }
 
-function component(width, height, color, x, y, type) {
-    this.type = type;
-    if (type == "image") {
-        this.image = new Image();
-        this.image.src = color;
-  }
-    this.score = 0;
-    this.width = width;
-    this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;    
-    this.x = x;
-    this.y = y;
-    this.gravity = 0;
-    this.gravitySpeed = 0;
-
-    this.update = function() {
-        ctx = myGameArea.context;
-        if (type == "image") {
-                ctx.drawImage(this.image, 
-                this.x, 
-                this.y,
-                this.width, this.height);
-        } 
-        else if(this.type == "text") {
-            ctx.font = this.width + " " + this.height;
-            ctx.fillStyle = color;
-            ctx.fillText(this.text, this.x, this.y);
-        } else {
-            ctx.fillStyle = color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        }
-    }
-
-    this.newPos = function() {
-        this.hitBottom();
-        this.hitTop()
-        this.gravitySpeed += this.gravity;
-        this.x += this.speedX;
-        this.y += this.speedY + this.gravitySpeed;
-    }
-
-    this.hitBottom = function() {
-        var rockbottom = myGameArea.canvas.height - this.height;
-        if (this.y > rockbottom) {
-            this.y = rockbottom;
-            this.gravitySpeed = 0;
-        }
-    }
-
-    this.hitTop = function(){
-        if((this.y - this.height) <= 0)
-        {
-            this.y = this.height;
-            this.gravitySpeed = 0;
-        }
-    }
-
-    //Verify Collision
-    this.crashWith = function(otherobj) {
-        var myleft      = this.x;
-        var myright     = this.x + (this.width);
-        var mytop       = this.y;
-        var mybottom    = this.y + (this.height);
-        var otherleft   = otherobj.x;
-        var otherright  = otherobj.x + (otherobj.width);
-        var othertop    = otherobj.y;
-        var otherbottom = otherobj.y + (otherobj.height);
-        var crash = true;
-        
-        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
-            crash = false;
-        }
-
-        return crash;
-    }
-}
-
 function updateGameArea() {
 
     if(this.paused) return;
@@ -166,13 +89,14 @@ function updateGameArea() {
 
     for (i = 0; i < myObstacles.length; i += 1) {
         myObstacles[i].x += -1;
-        myObstacles[i].update();
+        myObstacles[i].update(myGameArea);
     }
 
     myScore.text="Pontos: " + myGameArea.frameNo;
-    myScore.update();
+    myScore.update(myGameArea);
     myGamePiece.newPos();
-    myGamePiece.update();
+    myGamePiece.update(myGameArea);
+    muteAudio.update(myGameArea);
 }
 
 function everyinterval(n) {
@@ -227,7 +151,9 @@ function createGameComponents(){
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.5;
     // create score component
-    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
+    myScore     = new component("30px", "Consolas", "white", 280, 40, "text");
+    //mute audio
+    muteAudio   = new component(30, 30, "img/audio.png", screenWidth - 30, 0,"image");
 }
 
 function createGameSounds(){
@@ -238,6 +164,6 @@ function createGameSounds(){
 }
 
 function generateRandomPillar(){
-    var txt = "img/pillar" + Math.floor((Math.random() * 5) + 1) + ".png";
-    return txt;
+    var pillarName = "img/pillar" + Math.floor((Math.random() * 5) + 1) + ".png";
+    return pillarName;
 }
