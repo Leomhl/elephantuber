@@ -7,3 +7,5 @@ Este game está sendo desenvolvido de forma colaborativa, dê a sua contribuiç�
 
 * [Leonardo Marinho](http://leomarinho.com.br/)
 * [Leonardo F.Almeida](https://br.linkedin.com/in/leonardo-f-almeida-64a671b4)
+
+(Logo do jogo)[img/logo.png]
