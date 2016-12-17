@@ -4,6 +4,7 @@ var myScore;
 var screenWidth = 800;
 var screenHeight = 600;
 var mySound;
+var myMusic;
 
 function start() {
     document.getElementById('startBtn').style.display = "none";
@@ -24,14 +25,21 @@ function startGame() {
 
     // create score component
     myScore = new component("30px", "Consolas", "white", 280, 40, "text");
-    mySound = new sound("sounds/elephant.mp3");
+    
+    // create sound objects
+    mySound = new sound("sounds/elephant.mp3"   );
+    myMusic = new sound("sounds/music.mp3", true);
 
+
+    
+    myMusic.play();
     myGameArea.start();
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
+        accelerate(0.05);
         this.canvas.width = screenWidth;
         this.canvas.height = screenHeight;
         this.context = this.canvas.getContext("2d");
@@ -117,16 +125,22 @@ function component(width, height, color, x, y, type) {
 }
 
 function updateGameArea() {
+
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+
     for (i = 0; i < myObstacles.length; i += 1) {
         if (myGamePiece.crashWith(myObstacles[i])) {
+
             mySound.play();
+            myMusic.stop();
             myGameArea.stop();
             return;
         } 
     }
+    
     myGameArea.clear();
     myGameArea.frameNo += 1;
+
     if (myGameArea.frameNo == 1 || everyinterval(150)) {
         x = myGameArea.canvas.width;
         minHeight = 200;
@@ -138,10 +152,12 @@ function updateGameArea() {
         myObstacles.push(new component(10, height, "green", x, 0));
         myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
     }
+
     for (i = 0; i < myObstacles.length; i += 1) {
         myObstacles[i].x += -1;
         myObstacles[i].update();
     }
+
     myScore.text="Pontos: " + myGameArea.frameNo;
     myScore.update();
     myGamePiece.newPos();
