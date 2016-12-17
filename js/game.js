@@ -1,6 +1,8 @@
 var myGamePiece;
 var myObstacles = [];
 var myScore;
+var screenWidth = 800;
+var screenHeight = 600;
 
 function start() {
     document.getElementById('startBtn').style.display = "none";
@@ -15,20 +17,21 @@ function instructions() {
 
 function startGame() {
     
-    // Quadrado vermelho
+    // create player component
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.5;
 
-    // Placar
-    myScore = new component("30px", "Courier New Regular", "white", 280, 40, "text");
+    // create score component
+    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+
     myGameArea.start();
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 800;
-        this.canvas.height = 600;
+        this.canvas.width = screenWidth;
+        this.canvas.height = screenHeight;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
@@ -50,6 +53,7 @@ function component(width, height, color, x, y, type) {
     this.y = y;
     this.gravity = 0;
     this.gravitySpeed = 0;
+
     this.update = function() {
         ctx = myGameArea.context;
         if (this.type == "text") {
@@ -61,12 +65,15 @@ function component(width, height, color, x, y, type) {
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
     }
+
     this.newPos = function() {
+        this.hitBottom();
+        this.hitTop()
         this.gravitySpeed += this.gravity;
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;
-        this.hitBottom();
     }
+
     this.hitBottom = function() {
         var rockbottom = myGameArea.canvas.height - this.height;
         if (this.y > rockbottom) {
@@ -74,23 +81,34 @@ function component(width, height, color, x, y, type) {
             this.gravitySpeed = 0;
         }
     }
+
+    this.hitTop = function(){
+        if((this.y - this.height) <= 0)
+        {
+            this.y = this.height;
+            this.gravitySpeed = 0;
+        }
+    }
+
+    //Verify Collision
     this.crashWith = function(otherobj) {
-        var myleft = this.x;
-        var myright = this.x + (this.width);
-        var mytop = this.y;
-        var mybottom = this.y + (this.height);
-        var otherleft = otherobj.x;
-        var otherright = otherobj.x + (otherobj.width);
-        var othertop = otherobj.y;
+        var myleft      = this.x;
+        var myright     = this.x + (this.width);
+        var mytop       = this.y;
+        var mybottom    = this.y + (this.height);
+        var otherleft   = otherobj.x;
+        var otherright  = otherobj.x + (otherobj.width);
+        var othertop    = otherobj.y;
         var otherbottom = otherobj.y + (otherobj.height);
         var crash = true;
+        
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
         }
 
-        // Aqui congela o jogo
         return crash;
     }
+
 }
 
 function updateGameArea() {
@@ -132,5 +150,5 @@ function accelerate(n) {
     if (!myGameArea.interval)
         myGameArea.interval = setInterval(updateGameArea, 15); //Velocidade do jogo
 
-    myGamePiece.gravity = n;
+      myGamePiece.gravity = n;
 }
