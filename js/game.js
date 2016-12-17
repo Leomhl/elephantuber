@@ -66,6 +66,10 @@ var myGameArea = {
 
 function component(width, height, color, x, y, type) {
     this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+  }
     this.score = 0;
     this.width = width;
     this.height = height;
@@ -78,7 +82,13 @@ function component(width, height, color, x, y, type) {
 
     this.update = function() {
         ctx = myGameArea.context;
-        if (this.type == "text") {
+        if (type == "image") {
+                ctx.drawImage(this.image, 
+                this.x, 
+                this.y,
+                this.width, this.height);
+        } 
+        else if(this.type == "text") {
             ctx.font = this.width + " " + this.height;
             ctx.fillStyle = color;
             ctx.fillText(this.text, this.x, this.y);
@@ -156,8 +166,8 @@ function updateGameArea() {
         minGap = 50;
         maxGap = 200;
         gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-        myObstacles.push(new component(10, height, "green", x, 0));
-        myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+        myObstacles.push(new component(41, height, generateRandomPillar(), x, 0,"image"));
+        myObstacles.push(new component(41, x - height - gap, generateRandomPillar(), x, height + gap, "image"));
     }
 
     for (i = 0; i < myObstacles.length; i += 1) {
@@ -232,4 +242,9 @@ function createGameSounds(){
     mySound = new sound("sounds/elephant.mp3"   );
     myMusic = new sound("sounds/music.mp3", true);
     myMusic.play();
+}
+
+function generateRandomPillar(){
+    var txt = "img/pillar" + Math.floor((Math.random() * 5) + 1) + ".png";
+    return txt;
 }
