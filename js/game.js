@@ -1,15 +1,14 @@
-var myGamePiece;
+ var myGamePiece;
 var myObstacles = [];
 var myScore;
 var screenWidth = 800;
 var screenHeight = 600;
 var mySound;
 var myMusic;
+var paused = false;
 
 function start() {
-    document.getElementById('startBtn').style.display = "none";
-    document.getElementById('logo').style.display = "none";
-    document.getElementById('instructionsBtn').style.display = "none";
+    hideStartScreen();
     startGame();
 }
 
@@ -19,20 +18,9 @@ function instructions() {
 
 function startGame() {
     
-    // create player component
-    myGamePiece = new component(30, 30, "red", 10, 120);
-    myGamePiece.gravity = 0.5;
+    createGameComponents();
+    createGameSounds();
 
-    // create score component
-    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
-    
-    // create sound objects
-    mySound = new sound("sounds/elephant.mp3");
-    myMusic = new sound("sounds/music.mp3", true);
-
-
-    
-    myMusic.play();
     myGameArea.start();
 }
 
@@ -126,15 +114,13 @@ function component(width, height, color, x, y, type) {
 
 function updateGameArea() {
 
+    if(this.paused) return;
+
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
 
     for (i = 0; i < myObstacles.length; i += 1) {
         if (myGamePiece.crashWith(myObstacles[i])) {
-
-            mySound.play();
-            myMusic.stop();
-            myGameArea.stop();
-            return;
+            onLose();
         } 
     }
     
@@ -171,7 +157,57 @@ function everyinterval(n) {
 
 function accelerate(n) {
     if (!myGameArea.interval)
-        myGameArea.interval = setInterval(updateGameArea, 15); //Velocidade do jogo
+        myGameArea.interval = setInterval(updateGameArea, 15); //Game speed
 
       myGamePiece.gravity = n;
+}
+
+function onLose(){
+    mySound.play();
+    myMusic.stop();
+    myGameArea.stop();
+    showRestartButton();
+    return;
+}
+
+function pause(){
+    paused = !paused;
+    if(paused)
+    {
+        myMusic.stop();
+    }
+    else
+    {
+        myMusic.play();
+    }
+}
+
+function showRestartButton(){
+    document.getElementById('restartBtn').style.display = "inline-block";
+}
+
+function restart(){
+    document.location.reload();
+}
+
+function hideStartScreen(){
+    document.getElementById('startBtn').style.display = "none";
+    document.getElementById('logo').style.display = "none";
+    document.getElementById('instructionsBtn').style.display = "none";
+    document.getElementById('restartBtn').style.display = "none";
+}
+
+function createGameComponents(){
+    // create player component
+    myGamePiece = new component(30, 30, "red", 10, 120);
+    myGamePiece.gravity = 0.5;
+    // create score component
+    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
+}
+
+function createGameSounds(){
+    // create sound objects
+    mySound = new sound("sounds/elephant.mp3"   );
+    myMusic = new sound("sounds/music.mp3", true);
+    myMusic.play();
 }
