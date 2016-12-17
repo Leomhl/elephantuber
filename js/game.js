@@ -3,6 +3,7 @@ var myObstacles = [];
 var myScore;
 var screenWidth = 800;
 var screenHeight = 600;
+var mySound;
 
 function start() {
     document.getElementById('startBtn').style.display = "none";
@@ -23,6 +24,7 @@ function startGame() {
 
     // create score component
     myScore = new component("30px", "Consolas", "white", 280, 40, "text");
+    mySound = new sound("sounds/elephant.mp3");
 
     myGameArea.start();
 }
@@ -36,9 +38,12 @@ var myGameArea = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         updateGameArea();
-        },
+    },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
     }
 }
 
@@ -115,6 +120,8 @@ function updateGameArea() {
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
     for (i = 0; i < myObstacles.length; i += 1) {
         if (myGamePiece.crashWith(myObstacles[i])) {
+            mySound.play();
+            myGameArea.stop();
             return;
         } 
     }
