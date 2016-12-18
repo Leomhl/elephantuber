@@ -93,6 +93,17 @@ canvas {
     width: 20%;
 }
 
+/*Em implementação*/
+/*#ranking {
+    color: black;
+    padding: 15px 32px;
+    position:absolute;
+    top:50%;
+    left:40%;
+    width: 20%;
+    background-color: #B2B2B2;
+}*/
+
 #preInstructions {
 	top:57%;
     left:40%;

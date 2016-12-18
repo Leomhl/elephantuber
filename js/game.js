@@ -148,7 +148,8 @@ function hideStartScreen(){
 
 function createGameComponents(){
     // create player component
-    myGamePiece = new component(30, 30, "red", 10, 120);
+    // myGamePiece = new component(30, 30, "red", 10, 120);
+    myGamePiece = new component(40, 40, "img/proj/elephant-vector-4.png", 10, 120, "image");
     myGamePiece.gravity = 0.5;
     // create score component
     myScore     = new component("30px", "Consolas", "white", 280, 40, "text");
